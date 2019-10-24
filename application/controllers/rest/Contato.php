@@ -17,18 +17,18 @@ class Contato extends REST_Controller {
     }
 
     public function index_get() {
-         $token = $this->input->get_request_header("token");
+        $token = $this->input->get_request_header("token");
         $id = (int) $this->get('id');
         if ($id <= 0) {
             $data = $this->ct->get($token);
         } else {
-            $data = $this->ct->getOne($id,$token);
+            $data = $this->ct->getOne($id, $token);
         }
         $this->set_response($data, REST_Controller_Definitions::HTTP_OK);
     }
 
     public function index_post() {
-        if ((!$this->post('nome')) || (!$this->post('telefone'))) {
+        if ((!$this->post('nome')) || (!$this->post('telefone')) || (!$this->post('usuario_id'))) {
             $this->set_response([
                 'status' => false,
                 'error' => 'Campo não preenchidos'
@@ -37,12 +37,13 @@ class Contato extends REST_Controller {
         }
         $data = array(
             'nome' => $this->post('nome'),
-            'telefone' => $this->post('telefone')
+            'telefone' => $this->post('telefone'),
+            'usuario_id' => $this->post('usuario_id')
         );
         if ($this->ct->insert($data)) {
             $this->set_response([
                 'status' => true,
-                'message' => 'Contato inserida com successo!'
+                'message' => 'Contato inserido com successo!'
                     ], REST_Controller_Definitions::HTTP_OK);
         } else {
             $this->set_response([
@@ -64,7 +65,7 @@ class Contato extends REST_Controller {
         if ($this->ct->delete($id)) {
             $this->set_response([
                 'status' => true,
-                'message' => 'Contato deletada com successo!'
+                'message' => 'Contato deletado com successo!'
                     ], REST_Controller_Definitions::HTTP_OK);
         } else {
             $this->set_response([
@@ -76,7 +77,7 @@ class Contato extends REST_Controller {
 
     public function index_put() {
         $id = (int) $this->get('id');
-        if ((!$this->put('nome')) || (!$this->put('telefone')) || ($id <= 0)) {
+        if ((!$this->put('nome')) || (!$this->put('telefone')) || (!$this->put('usuario_id')) || ($id <= 0)) {
             $this->set_response([
                 'status' => false,
                 'error' => 'Campo não preenchidos'
@@ -85,7 +86,8 @@ class Contato extends REST_Controller {
         }
         $data = array(
             'nome' => $this->put('nome'),
-            'telefone' => $this->put('telefone')
+            'telefone' => $this->put('telefone'),
+            'usuario_id' => $this->post('usuario_id')
         );
         if ($this->ct->update($id, $data)) {
             $this->set_response([
@@ -101,3 +103,5 @@ class Contato extends REST_Controller {
     }
 
 }
+
+?>

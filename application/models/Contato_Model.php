@@ -4,11 +4,12 @@ class Contato_Model extends CI_Model {
 
     const table = 'contato';
 
-    public function getOne($id,$apikey) {
+    public function getAll($id, $apikey) {
         if ($id > 0) {
             $this->db->select(self::table . '.*');
-            $this->db->join('token', 'token.usuario_id=' . self::table . '.id');
-            $this->db->where(array('token.apikey' => $apikey,'id', $id));
+            $this->db->join('usuario', self::table . '.usuario_id = usuario.id', 'inner');
+            $this->db->join('token', 'token.usuario_id = usuario.id', 'inner');
+            $this->db->where(array('token.apikey' => $apikey, self::table . '.id' => $id));
             $query = $this->db->get(self::table);
             return $query->row(0);
         } else {
@@ -18,7 +19,8 @@ class Contato_Model extends CI_Model {
 
     public function get($apikey) {
         $this->db->select(self::table . '.*');
-        $this->db->join('token', 'token.usuario_id=' . self::table . '.id');
+        $this->db->join('usuario', self::table . '.usuario_id = usuario.id', 'inner');
+        $this->db->join('token', 'token.usuario_id = usuario.id', 'inner');
         $this->db->where(array('token.apikey' => $apikey));
         $query = $this->db->get(self::table);
         return $query->result();
