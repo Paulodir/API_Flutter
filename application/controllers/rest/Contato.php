@@ -17,12 +17,12 @@ class Contato extends REST_Controller {
     }
 
     public function index_get() {
-        $token = $this->input->get_request_header("token");
+         $token = $this->input->get_request_header("token");
         $id = (int) $this->get('id');
         if ($id <= 0) {
             $data = $this->ct->get($token);
         } else {
-            $data = $this->ct->getOne($id, $token);
+            $data = $this->ct->getOne($id,$token);
         }
         $this->set_response($data, REST_Controller_Definitions::HTTP_OK);
     }
@@ -77,7 +77,7 @@ class Contato extends REST_Controller {
 
     public function index_put() {
         $id = (int) $this->get('id');
-        if ((!$this->put('nome')) || (!$this->put('telefone')) || (!$this->put('usuario_id')) || ($id <= 0)) {
+        if ((!$this->put('nome')) || (!$this->put('telefone'))|| (!$this->put('usuario_id')) || ($id <= 0)) {
             $this->set_response([
                 'status' => false,
                 'error' => 'Campo não preenchidos'
@@ -103,5 +103,3 @@ class Contato extends REST_Controller {
     }
 
 }
-
-?>

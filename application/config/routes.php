@@ -53,8 +53,6 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['rest/Equipe/index/(:num)'] = 'rest/Equipe/index/id/$1';
-$route['rest/Integrante/index/(:num)'] = 'rest/Integrante/index/id/$1';
-$route['rest/Pontuacao/index/(:num)'] = 'rest/Pontuacao/index/id/$1';
-$route['rest/Prova/index/(:num)'] = 'rest/Prova/index/id/$1';
-$route['rest/Usuario/index/(:num)'] = 'rest/Usuario/index/id/$1';
+
+$route['rest/Usuario/(:num)'] = 'rest/Usuario/index/id/$1';
+$route['rest/Contato/(:num)'] = 'rest/Contato/index/id/$1';
