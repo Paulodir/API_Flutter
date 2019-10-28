@@ -87,7 +87,7 @@ class Contato extends REST_Controller {
         $data = array(
             'nome' => $this->put('nome'),
             'telefone' => $this->put('telefone'),
-            'usuario_id' => $this->post('usuario_id')
+            'usuario_id' => $this->put('usuario_id')
         );
         if ($this->ct->update($id, $data)) {
             $this->set_response([
