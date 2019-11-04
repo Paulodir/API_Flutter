@@ -20,7 +20,7 @@ class Contato extends REST_Controller {
          $token = $this->input->get_request_header("token");
         $id = (int) $this->get('id');
         if ($id <= 0) {
-            $data = $this->ct->get($token);
+            $data = $this->ct->getAll($token);
         } else {
             $data = $this->ct->getOne($id,$token);
         }

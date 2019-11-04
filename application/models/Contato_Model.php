@@ -4,7 +4,7 @@ class Contato_Model extends CI_Model {
 
     const table = 'contato';
 
- public function getAll($id, $apikey) {
+ public function getOne($id, $apikey) {
         if ($id > 0) {
             $this->db->select(self::table . '.*');
             $this->db->join('usuario', self::table . '.usuario_id = usuario.id', 'inner');
@@ -17,7 +17,7 @@ class Contato_Model extends CI_Model {
         }
     }
 
-    public function get($apikey) {
+    public function getAll($apikey) {
         $this->db->select(self::table . '.*');
         $this->db->join('usuario', self::table .'.usuario_id = usuario.id', 'inner');
         $this->db->join('token', 'token.usuario_id = usuario.id', 'inner');
